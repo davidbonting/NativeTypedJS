@@ -8,10 +8,10 @@
 
   <h3>This demo is all about</h3>
   <div id="otherDivName">
-    <p>The most advanced option</p>
-    <p>Not using jQuery</p>
+    <p>The most ~advanced option</p>
+    <p>Not ~using j~Query</p>
     <p>Saving KB's</p>
-    <p>Other demo's at index[number number 2 or 3].html</p>
+    <p>Other demo's at ~index[number 2 or 3].html</p>
   </div>
 
   <script src="nativeTypedJS.min.js"></script>
@@ -21,12 +21,13 @@
       nativeTypedJS({
         div: 'otherDivName', // (optional) default: whereMagicHappens
         firstTimeStart: 2000, // (optional) default: 0
-        animationTime: 10000, // (optional) default: 5000
+        animationTime: 5000, // (optional) default: 2000
         timeBeforeDeleting: 5000, // (optional) default: 2000
         timeBeforeNext: 3000, // (optional) default: 1000
         cursorSpeed: 500, // (optional) default: 1000
         shuffle: true, // (optional) default: false
-        loop: true // (optional) default: false
+        loop: true, // (optional) default: false
+        cursorPause: 3000, // (optional) default: 1000
       });
     });
   </script>

@@ -11,27 +11,25 @@ function nativeTypedJS(options){
   // Assign default value's
   options.div = defaultValue(options.div,'whereMagicHappens')
   options.firstTimeStart = defaultValue(options.firstTimeStart,0)
-  options.animationTime = defaultValue(options.animationTime,5000)
   options.timeBeforeDeleting = defaultValue(options.timeBeforeDeleting,2000)
   options.timeBeforeNext = defaultValue(options.timeBeforeNext,1000)
+  options.animationTime = (options.timeBeforeDeleting + options.timeBeforeNext) + 1 + defaultValue(options.animationTime,2000)
   options.cursorSpeed = defaultValue(options.cursorSpeed,1000)
   options.shuffle = defaultValue(options.shuffle,false)
   options.loop = defaultValue(options.loop,false)
+  options.cursorPause = defaultValue(options.cursorPause,1000)
+
+  // Extra time when ~ is used
+  options.extraTime = 0;
 
   // Parent div
-  var parentDiv = document.getElementById(options.div)
+  parentDiv = document.getElementById(options.div)
   // Get all childrens of div (ie9+ browser compatibility)
-  var divChildrens = Array.prototype.slice.call(parentDiv.childNodes)
+  divChildrens = Array.prototype.slice.call(parentDiv.childNodes)
   // Amount of children
-  var childrenCount = divChildrens.length - 1
+  childrenCount = divChildrens.length - 1
   // Save only ELEMENT_NODES (P elements) (because 'var childrens' also saves TEXT_NODES)
-  var pElements = []
-
-  // Provide error when animationTime is too short (otherwise it causes weird behaviour)
-  if((options.timeBeforeDeleting + options.timeBeforeNext) >= options.animationTime){
-    parentDiv.innerHTML = 'Your options timeBeforeDeleting (' + options.timeBeforeDeleting + 'ms) and timeBeforeNext (' + options.timeBeforeNext + 'ms) combined (' + (options.timeBeforeDeleting+options.timeBeforeNext) + 'ms) should be less than animationTime (' + options.animationTime + 'ms)'
-    return
-  }
+  pElements = []
 
   // Loop trough childrens of parent div
   divChildrens.forEach(function(item, i){
@@ -52,23 +50,24 @@ function nativeTypedJS(options){
     emptyParentDiv()
 
     // Add one P element
-    var masterP = document.createElement("p")
+    masterP = document.createElement("p")
     parentDiv.appendChild(masterP)
 
     // Add text SPAN element
-    var textSpan = document.createElement("span")
+    textSpan = document.createElement("span")
     textSpan.id = "typedText"
     parentDiv.firstChild.appendChild(textSpan)
 
     // Add cursor SPAN element
-    var cursorSpan = document.createElement("span")
+    cursorSpan = document.createElement("span")
     cursorSpan.id = "cursor"
     cursorSpan.innerText = '|'
     parentDiv.firstChild.appendChild(cursorSpan)
 
     // Loop trough the old P elements
-    var pElementsCount = options.pElementsCount = pElements.length - 1
-    var whileLoopCount = 0
+    pElementsCount = options.pElementsCount = pElements.length - 1
+    whileLoopCount = 0
+    makeAnimationLonger = 0;
 
     // shuffle array first (if shuffle = true)
     if(options.shuffle){
@@ -78,10 +77,19 @@ function nativeTypedJS(options){
       if(whileLoopCount <= pElementsCount){
         // Make the current typed item globally available (mainly for type() function)
         textItem = pElements[whileLoopCount]
+
+        // Make time longer beacuse of ~
+        countPauses = (textItem.match(/~/g) || []).length
+        if(countPauses!=0){
+          makeAnimationLonger = countPauses * options.cursorPause;
+        }else{
+          makeAnimationLonger = 0;
+        }
+
         type(whileLoopCount)
         options.whileLoopCount = whileLoopCount++
         // It's like pausing the script, otherwise this loop is done in a few milisecond and you won't have an animation.
-        setTimeout(loopElements,options.animationTime)
+        setTimeout(loopElements,(options.animationTime + makeAnimationLonger))
       }else{
         // start all over (if loop = true)
         if(options.loop){
@@ -117,8 +125,8 @@ function nativeTypedJS(options){
   // Native javascript fadein (thanks to http://youmightnotneedjquery.com/)
   function fadeIn(el) {
     el.style.opacity = 0
-    var last = +new Date()
-    var tick = function() {
+    last = +new Date()
+    tick = function() {
       el.style.opacity = +el.style.opacity + (new Date() - last) / 100
       last = +new Date()
       if (+el.style.opacity < 1) {
@@ -131,8 +139,8 @@ function nativeTypedJS(options){
   // Native javascript fadeout (thanks to http://youmightnotneedjquery.com/)
   function fadeOut(el) {
     el.style.opacity = 1
-    var last = +new Date()
-    var tick = function() {
+    last = +new Date()
+    tick = function() {
       el.style.opacity = +el.style.opacity - (new Date() - last) / 100
       last = +new Date()
       if (+el.style.opacity > 0) {
@@ -144,10 +152,15 @@ function nativeTypedJS(options){
 
   // Native typing effect (each letter with a pause) thanks to: stathisg https://codepen.io/stathisg/pen/Bkvhg
   function type(loops){
+    if(textItem.substr(substrCount,1)=='~'){
+      textItem = textItem.replace('~', '')
+      options.extraTime += options.cursorPause;
+    }
     document.getElementById('typedText').innerHTML = textItem.substr(0,substrCount++)
     timeNextLetter = (options.animationTime - options.timeBeforeDeleting - options.timeBeforeNext) / 2 / textItem.length
     if(substrCount < textItem.length+1){
-      setTimeout(type, timeNextLetter)
+      setTimeout(type, (timeNextLetter + options.extraTime))
+      options.extraTime = 0;
     }else{
       if(options.whileLoopCount == options.pElementsCount && !options.loop){
         // do not delete the text if there is no loop
@@ -180,9 +193,9 @@ function nativeTypedJS(options){
 
   // Durstenfeld shuffle thanks to: http://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
   function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1))
-        var temp = array[i]
+    for (i = array.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1))
+        temp = array[i]
         array[i] = array[j]
         array[j] = temp
     }

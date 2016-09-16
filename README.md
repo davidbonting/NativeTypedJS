@@ -7,9 +7,9 @@ I started this project because I wanted the typing effect. But I didn't want big
 
 | Compression | jQuery (1.9.1) + Typed.JS | Native JavaScript Typed.JS |
 | ---         | ---                       | ---                        |
-| RAW         | 272.85 KB                 | 6.63 KB                    |
-| Minified    | 94.75 KB                  | 2.61 KB                    |
-| Gzipped     | 78,89 KB                  | 0.96 KB                    |
+| RAW         | 272.85 KB                 | 6.78 KB                    |
+| Minified    | 94.75 KB                  | 3.01 KB                    |
+| Gzipped     | 78,89 KB                  | 1.04 KB                    |
 
 > That's about 98% savings
 
@@ -52,8 +52,21 @@ Customizable
         // If the P elements are allowed to be in a random order
         shuffle: true, // (optional) default: false
         // If the animation goes on forever in a loop
-        loop: true // (optional) default: false
+        loop: true, // (optional) default: false
+        // How long the pause of ~ should take in milliseconds
+        cursorPause: 3000 // (optional) default: 1000
       });
+~~~
+
+Special pause
+---
+Use '~' to pause the animation
+~~~ html
+  <h3>This demo is all about</h3>
+  <div id="whereMagicHappens">
+    <p>The easiest ~option</p>
+    <p>Not using ~j~Query</p>
+  </div>
 ~~~
 
 CSS

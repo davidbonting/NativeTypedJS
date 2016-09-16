@@ -4,11 +4,11 @@ Original [Typed.JS](https://github.com/mattboldt/typed.js/) @mattboldt
 About the same as Typed.JS but without the need of [jQuery](https://jquery.com/). This "Native JavaScript Typed.JS" is pure JavaScript and supported by modern browsers (IE9+).
 
 I started this project because I wanted the typing effect. But I didn't want big old slow jQuery.
-Compression | jQuery (1.9.1) + Typed.JS | Native JavaScript Typed.JS
------------- | ------------- | -------------
-RAW | 272.85 KB | 6.58 KB
-Minified | 94.75 KB | 2.58 KB
-Gzipped | 78,89 KB | 0.95 KB
+| Compression | jQuery (1.9.1) + Typed.JS | Native JavaScript Typed.JS |
+| ------------ | ------------- | ------------- |
+| RAW | 272.85 KB | 6.58 KB |
+| Minified | 94.75 KB | 2.58 KB |
+| Gzipped | 78,89 KB | 0.95 KB |
 
 > That's about 98% savings
 

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Example</title>
+  <style>
+    #whereMagicHappens{
+      background-color: #bababa;
+    }
+    #typedText{
+      color: red;
+    }
+    #cursor{
+      color: green;
+      font-weight: bold;
+      font-size: 2em;
+    }
+  </style>
+</head>
+<body>
+
+  <h3>This demo is all about</h3>
+  <div id="whereMagicHappens">
+    <p>Styling the different parts</p>
+    <p>Not using jQuery</p>
+    <p>Saving KB's</p>
+    <p>Other demo's at index[number number 2 or 3].html</p>
+  </div>
+
+  <script src="nativeTypedJS.min.js"></script>
+  <script>
+    // Equivalent $(document).ready(function(){});
+    document.addEventListener("DOMContentLoaded", function(event) {
+      nativeTypedJS();
+    });
+  </script>
+</body>
+</html>

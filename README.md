@@ -7,9 +7,9 @@ I started this project because I wanted the typing effect. But I didn't want big
 
 | Compression | jQuery (1.9.1) + Typed.JS | Native JavaScript Typed.JS |
 | ---         | ---                       | ---                        |
-| RAW         | 272.85 KB                 | 6.58 KB                    |
-| Minified    | 94.75 KB                  | 2.58 KB                    |
-| Gzipped     | 78,89 KB                  | 0.95 KB                    |
+| RAW         | 272.85 KB                 | 6.63 KB                    |
+| Minified    | 94.75 KB                  | 2.61 KB                    |
+| Gzipped     | 78,89 KB                  | 0.96 KB                    |
 
 > That's about 98% savings
 

@@ -20,8 +20,8 @@ function nativeTypedJS(options){
 
   // Parent div
   var parentDiv = document.getElementById(options.div)
-  // Get all childrens of div
-  var divChildrens = parentDiv.childNodes
+  // Get all childrens of div (ie9+ browser compatibility)
+  var divChildrens = Array.prototype.slice.call(parentDiv.childNodes)
   // Amount of children
   var childrenCount = divChildrens.length - 1
   // Save only ELEMENT_NODES (P elements) (because 'var childrens' also saves TEXT_NODES)

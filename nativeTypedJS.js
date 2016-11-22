@@ -9,7 +9,7 @@ function nativeTypedJS(options){
   options = defaultValue(options,{});
 
   // Assign default value's
-  options.div = defaultValue(options.div,'whereMagicHappens')
+  options.div = defaultValue(options.div,'ntjs')
   options.firstTimeStart = defaultValue(options.firstTimeStart,0)
   options.timeBeforeDeleting = defaultValue(options.timeBeforeDeleting,2000)
   options.timeBeforeNext = defaultValue(options.timeBeforeNext,1000)
@@ -35,7 +35,7 @@ function nativeTypedJS(options){
   divChildrens.forEach(function(item, i){
     // Only keep the ELEMENT_NODES (ELEMENT_NODE = P element = 1)
     if(item.nodeType === 1){
-      pElements.push(item.innerHTML)
+      pElements.push(item.textContent)
     }
 
     // End of foreach
@@ -55,12 +55,12 @@ function nativeTypedJS(options){
 
     // Add text SPAN element
     textSpan = document.createElement("span")
-    textSpan.id = "typedText"
+    textSpan.id = "ntjsText"
     parentDiv.firstChild.appendChild(textSpan)
 
     // Add cursor SPAN element
     cursorSpan = document.createElement("span")
-    cursorSpan.id = "cursor"
+    cursorSpan.id = "ntjsCursor"
     cursorSpan.innerText = '|'
     parentDiv.firstChild.appendChild(cursorSpan)
 
@@ -116,9 +116,9 @@ function nativeTypedJS(options){
 
   // Let the cursor fadeout and fadein
   function cursorAnimation() {
-    fadeOut(document.getElementById('cursor'));
+    fadeOut(document.getElementById('ntjsCursor'));
     setTimeout(function() {
-      fadeIn(document.getElementById('cursor'));
+      fadeIn(document.getElementById('ntjsCursor'));
     }, (options.cursorSpeed / 2));
   }
 
@@ -156,7 +156,7 @@ function nativeTypedJS(options){
       textItem = textItem.replace('~', '')
       options.extraTime += options.cursorPause;
     }
-    document.getElementById('typedText').innerHTML = textItem.substr(0,substrCount++)
+    document.getElementById('ntjsText').innerHTML = textItem.substr(0,substrCount++)
     timeNextLetter = (options.animationTime - options.timeBeforeDeleting - options.timeBeforeNext) / 2 / textItem.length
     if(substrCount < textItem.length+1){
       setTimeout(type, (timeNextLetter + options.extraTime))
@@ -172,7 +172,7 @@ function nativeTypedJS(options){
 
   // Native erasing effect (each letter with a pause) thanks to: stathisg https://codepen.io/stathisg/pen/Bkvhg
   function erase(){
-    document.getElementById('typedText').innerHTML = textItem.substr(0,substrCount--)
+    document.getElementById('ntjsText').innerHTML = textItem.substr(0,substrCount--)
     timeNextLetter = (options.animationTime - options.timeBeforeDeleting - options.timeBeforeNext) / 2 / textItem.length
     if(substrCount >= 0){
       setTimeout(erase, timeNextLetter)

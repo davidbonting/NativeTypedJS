@@ -3,7 +3,7 @@ Original [Typed.JS](https://github.com/mattboldt/typed.js/) @mattboldt
 
 About the same as Typed.JS but without the need of [jQuery](https://jquery.com/). This "Native JavaScript Typed.JS" is pure JavaScript and supported by modern browsers (IE9+).
 
-I started this project because I wanted the typing effect. But I didn't want big old slow jQuery.
+I started this project because I wanted the same typing effect, but didn't want big old slow jQuery.
 
 | Compression | jQuery (1.9.1) + Typed.JS | Native JavaScript Typed.JS |
 | ---         | ---                       | ---                        |
@@ -17,7 +17,7 @@ Easy to implement
 ---
 ~~~ html
   <h3>This demo is all about</h3>
-  <div id="whereMagicHappens">
+  <div id="ntjs">
     <p>The easiest option</p>
     <p>Not using jQuery</p>
     <p>Saving KB's</p>
@@ -38,10 +38,10 @@ Customizable
 ~~~ javascript
       nativeTypedJS({
       	// The div where the effect takes place
-        div: 'otherDivName', // (optional) default: whereMagicHappens
+        div: 'otherDivName', // (optional) default: ntjs
         // Time to wait before the effect starts in milliseconds
         firstTimeStart: 2000, // (optional) default: 0
-        // Duration of the whole animation in milliseconds
+        // Duration of the animation in milliseconds
         animationTime: 10000, // (optional) default: 5000
         // Pauze before deleting the text in milliseconds
         timeBeforeDeleting: 5000, // (optional) default: 2000
@@ -63,7 +63,7 @@ Special pause
 Use '~' to pause the animation
 ~~~ html
   <h3>This demo is all about</h3>
-  <div id="whereMagicHappens">
+  <div id="ntjs">
     <p>The easiest ~option</p>
     <p>Not using ~j~Query</p>
   </div>
@@ -73,20 +73,20 @@ CSS
 ---
 Tip: Start styling with only one P element untill it looks nice. Than add the JavaScript.
 ~~~ html
-  <div id="whereMagicHappens">
+  <div id="ntjs">
     <p>The easiest option</p>
   </div>
 ~~~
 
 And when the effect takes place these ID's are available.
 ~~~ css
-    #whereMagicHappens{
+    #ntjs{
       background-color: #bababa;
     }
-    #typedText{
+    #ntjsText{
       color: red;
     }
-    #cursor{
+    #ntjsCursor{
       color: green;
       font-weight: bold;
       font-size: 2em;
